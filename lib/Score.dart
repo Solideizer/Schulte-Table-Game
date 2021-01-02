@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:schulte_table_game/DBHelper.dart';
 import 'StringScoresDB.dart';
-import 'HighscoreDB.dart';
 
 class Score extends StatefulWidget {
   @override
@@ -9,7 +8,6 @@ class Score extends StatefulWidget {
 }
 
 class _ScoreState extends State<Score> {
-  List<HighScore> highScoreList;
   List<StringScores> stringScoresList;
   List<int> intScores;
   DBHelper _dbHelper;
@@ -18,7 +16,6 @@ class _ScoreState extends State<Score> {
     super.initState();
     _dbHelper = DBHelper();
     stringScoresList = List<StringScores>();
-    highScoreList = List<HighScore>();
   }
 
   @override

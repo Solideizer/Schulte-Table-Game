@@ -5,9 +5,6 @@ import 'package:flip_card/flip_card.dart';
 import 'package:schulte_table_game/DBHelper.dart';
 import 'package:schulte_table_game/DBHelper2.dart';
 import 'package:schulte_table_game/StringScoresDB.dart';
-
-import 'Home.dart';
-//import 'dbModel.dart';
 import 'HighscoreDB.dart';
 
 class GamePage extends StatefulWidget {
@@ -56,7 +53,7 @@ class _GamePageState extends State<GamePage> {
   startSecondsTimer() {
     secondsTimer = Timer.periodic(Duration(seconds: 1), (t) {
       setState(() {
-        seconds = seconds + 1;
+        seconds += 1;
       });
     });
   }
@@ -64,8 +61,8 @@ class _GamePageState extends State<GamePage> {
   startMilisecondsTimer() {
     milisecondsTimer = Timer.periodic(Duration(milliseconds: 1), (a) {
       setState(() {
-        miliseconds = miliseconds + 1;
-        if (miliseconds == 60) {
+        miliseconds += 1;
+        if (miliseconds == 1000) {
           miliseconds = 0;
         }
       });
@@ -206,12 +203,14 @@ class _GamePageState extends State<GamePage> {
                       child: Container(
                         color: Colors.deepPurple,
                         child: Center(
-                          child: Text('${data[index]}',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 24.0,
-                                  fontWeight: FontWeight.w700,
-                                  fontFamily: "Roboto")),
+                          child: Text(
+                            '${data[index]}',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 24.0,
+                                fontWeight: FontWeight.w700,
+                                fontFamily: "Roboto"),
+                          ),
                         ),
                       ),
                     ),
@@ -244,58 +243,5 @@ class _GamePageState extends State<GamePage> {
     for (Map okunanpuanMapi in mapListe) {
       intScores.add(int.parse(okunanpuanMapi["highscore"]));
     }
-
-    var highscore = getHighscore(stringScores);
-    showDialog(
-        context: context,
-        barrierDismissible: false,
-        builder: (context) => AlertDialog(
-              title: Text(
-                "High Score : " + highscore.toString(),
-                style: TextStyle(color: Colors.deepPurple),
-              ),
-              content: Text(
-                "Time $seconds . $miliseconds",
-                style: Theme.of(context).textTheme.headline3,
-              ),
-              actions: [
-                RaisedButton(
-                  onPressed: () {
-                    Navigator.of(context).pushReplacement(
-                      MaterialPageRoute(builder: (context) => MyApp()),
-                    );
-                  },
-                  child: Text(
-                    "Next",
-                    style: TextStyle(color: Colors.deepPurple),
-                  ),
-                ),
-              ],
-            ));
-  }
-
-  int getHighscore(List<String> stringListe) {
-    bubbleSort(intScores);
-    return intScores[0];
-  }
-
-  void bubbleSort(List list) {
-    if (list == null || list.length == 0) return;
-
-    int n = list.length;
-    int i, step;
-    for (step = 0; step < n; step++) {
-      for (i = 0; i < n - step - 1; i++) {
-        if (list[i] > list[i + 1]) {
-          swap(list, i);
-        }
-      }
-    }
-  }
-
-  void swap(List list, int i) {
-    int temp = list[i];
-    list[i] = list[i + 1];
-    list[i + 1] = temp;
   }
 }
